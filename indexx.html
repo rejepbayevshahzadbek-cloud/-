@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEOSTYLE SHOES</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080810;
+  --bg2:#0e0e1a;
+  --card:#12121e;
+  --border:#1e1e30;
+  --neon:#00f0ff;
+  --neon2:#bf00ff;
+  --pink:#ff2d78;
+  --white:#f0f0ff;
+  --gray:#666680;
+  --text:#c8c8e0;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Outfit',sans-serif;overflow-x:hidden}
+
+/* ── CURSOR GLOW ── */
+.cursor-glow{
+  position:fixed;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,240,255,0.06) 0%,transparent 70%);
+  pointer-events:none;transform:translate(-50%,-50%);z-index:0;
+  transition:left .1s,top .1s;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:.4;
+}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:999;
+  background:rgba(8,8,16,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 50px;height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;letter-spacing:4px;
+  background:linear-gradient(90deg,var(--neon),var(--neon2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+nav{display:flex;gap:32px;align-items:center}
+nav a{
+  color:var(--gray);text-decoration:none;
+  font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  transition:color .2s;position:relative;
+}
+nav a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;
+  background:var(--neon);transition:width .3s;
+}
+nav a:hover{color:var(--neon)}
+nav a:hover::after{width:100%}
+.cart-nav{
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#000!important;padding:10px 24px;border-radius:40px;
+  font-weight:700!important;font-size:12px!important;
+  letter-spacing:1.5px;position:relative;
+  transition:opacity .2s!important;
+}
+.cart-nav::after{display:none!important}
+.cart-nav:hover{opacity:.85;color:#000!important}
+#cartCount{
+  position:absolute;top:-5px;right:-5px;
+  background:var(--pink);color:#fff;
+  width:18px;height:18px;border-radius:50%;
+  font-size:10px;display:flex;align-items:center;justify-content:center;
+  font-weight:800;
+}
+.burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px}
+.burger span{display:block;width:22px;height:2px;background:var(--white);transition:.3s}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  padding:100px 20px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('images/banner.jpg') center/cover no-repeat;
+  opacity:.15;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,240,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,240,255,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-glow1{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,240,255,.12),transparent 70%);
+  top:-100px;left:-100px;
+}
+.hero-glow2{
+  position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(191,0,255,.1),transparent 70%);
+  bottom:-100px;right:-100px;
+}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(0,240,255,.3);
+  background:rgba(0,240,255,.05);
+  color:var(--neon);font-size:11px;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:8px 20px;border-radius:40px;margin-bottom:30px;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--neon);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+.hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(60px,12vw,150px);
+  line-height:.9;letter-spacing:2px;
+  color:var(--white);margin-bottom:10px;
+}
+.hero h1 .accent{
+  background:linear-gradient(90deg,var(--neon),var(--neon2),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:14px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:50px;font-weight:300;
+}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#000;padding:16px 45px;border-radius:40px;
+  font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;transition:transform .2s,box-shadow .2s;
+  box-shadow:0 0 30px rgba(0,240,255,.3);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(0,240,255,.5)}
+.btn-secondary{
+  display:inline-block;
+  border:1px solid rgba(0,240,255,.4);color:var(--neon);
+  padding:16px 45px;border-radius:40px;
+  font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;transition:all .2s;
+  background:rgba(0,240,255,.05);
+}
+.btn-secondary:hover{background:rgba(0,240,255,.12);border-color:var(--neon)}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:28px 50px;display:flex;justify-content:center;gap:80px;flex-wrap:wrap;
+}
+.stat{text-align:center}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;font-size:36px;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:4px}
+
+/* ── SECTION ── */
+.section{max-width:1400px;margin:0 auto;padding:90px 30px}
+.sec-head{text-align:center;margin-bottom:70px}
+.sec-tag{
+  display:inline-block;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:14px;font-weight:600;
+}
+.sec-title{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);
+  letter-spacing:3px;color:var(--white);line-height:1;
+}
+.sec-line{
+  width:50px;height:2px;margin:16px auto 0;
+  background:linear-gradient(90deg,var(--neon),var(--neon2));
+  border-radius:2px;
+}
+
+/* ── DIVIDER ── */
+.divider{
+  background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:20px;text-align:center;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:6px;
+  color:var(--gray);overflow:hidden;white-space:nowrap;position:relative;
+}
+.divider-inner{
+  display:inline-block;animation:marquee 20s linear infinite;
+}
+@keyframes marquee{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+
+/* ── PRODUCTS ── */
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;
+  position:relative;
+}
+.card:hover{
+  transform:translateY(-10px);
+  border-color:rgba(0,240,255,.3);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(0,240,255,.08);
+}
+.card-img-wrap{
+  position:relative;overflow:hidden;height:270px;
+  background:linear-gradient(135deg,#0e0e1c,#1a1a2e);
+}
+.card-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s;
+}
+.card:hover .card-img-wrap img{transform:scale(1.08)}
+
+.card-badge{
+  position:absolute;top:14px;left:14px;
+  font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 12px;border-radius:40px;
+}
+.badge-hit{background:var(--pink);color:#fff}
+.badge-new{background:linear-gradient(135deg,var(--neon),var(--neon2));color:#000}
+.badge-lux{background:linear-gradient(135deg,#c9a84c,#e8c97a);color:#000}
+
+.card-body{padding:22px}
+.card-brand{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--neon);font-weight:700;margin-bottom:6px;
+}
+.card h3{
+  font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;
+  color:var(--white);margin-bottom:14px;
+}
+.price{
+  font-family:'Bebas Neue',sans-serif;font-size:30px;
+  background:linear-gradient(90deg,var(--white),var(--neon));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:18px;
+}
+
+/* ── COLOR PICKER ── */
+.pick-label{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:8px;font-weight:600;
+}
+.pick-label span{color:var(--white);font-weight:700}
+.color-dots{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.color-dot{
+  width:26px;height:26px;border-radius:50%;cursor:pointer;
+  border:2px solid transparent;transition:transform .2s,border-color .2s;
+}
+.color-dot:hover{transform:scale(1.2)}
+.color-dot.active{border-color:var(--neon);transform:scale(1.2);
+  box-shadow:0 0 10px rgba(0,240,255,.5)}
+.color-dot[data-color="white"]{background:#e8e8f0;border-color:#555}
+.color-dot[data-color="black"]{background:#111}
+.color-dot[data-color="gray"]{background:#777}
+.color-dot[data-color="blue"]{background:#1a55ee}
+.color-dot[data-color="pink"]{background:#ff2d78}
+.color-dot[data-color="red"]{background:#dd1111}
+.color-dot[data-color="green"]{background:#11aa33}
+.color-dot[data-color="beige"]{background:#c9aa80}
+.color-dot.active[data-color="white"]{border-color:var(--neon)}
+
+/* ── SIZE PICKER ── */
+.size-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.sz{
+  width:44px;height:36px;
+  border:1px solid var(--border);background:transparent;
+  border-radius:8px;font-size:12px;font-weight:700;
+  cursor:pointer;font-family:'Outfit',sans-serif;color:var(--gray);
+  transition:all .15s;
+}
+.sz:hover{border-color:var(--neon);color:var(--neon)}
+.sz.active{
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  border-color:transparent;color:#000;
+  box-shadow:0 0 15px rgba(0,240,255,.4);
+}
+
+/* ── ADD BTN ── */
+.btn-add{
+  width:100%;padding:14px;border:none;border-radius:10px;
+  background:linear-gradient(135deg,rgba(0,240,255,.15),rgba(191,0,255,.15));
+  border:1px solid rgba(0,240,255,.2);
+  color:var(--neon);font-family:'Outfit',sans-serif;
+  font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.btn-add:hover{
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#000;border-color:transparent;
+  box-shadow:0 0 25px rgba(0,240,255,.4);
+}
+
+/* ── CART SECTION ── */
+#cart-section{
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  padding:90px 30px;
+}
+.cart-inner{max-width:900px;margin:0 auto}
+.cart-empty{
+  text-align:center;padding:80px;
+  color:var(--gray);font-size:16px;letter-spacing:1px;
+  border:1px dashed var(--border);border-radius:16px;
+}
+.cart-item{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:20px 24px;display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:12px;gap:16px;
+  flex-wrap:wrap;transition:border-color .2s;
+}
+.cart-item:hover{border-color:rgba(0,240,255,.2)}
+.cart-item-name{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;
+  letter-spacing:1px;color:var(--white);margin-bottom:4px;
+}
+.cart-item-meta{font-size:12px;color:var(--gray);letter-spacing:1px}
+.cart-item-price{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;
+  background:linear-gradient(90deg,var(--neon),var(--neon2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  min-width:110px;text-align:right;
+}
+.qty-wrap{display:flex;align-items:center;gap:12px}
+.qty-btn{
+  width:30px;height:30px;border:1px solid var(--border);
+  background:transparent;border-radius:8px;
+  font-size:16px;cursor:pointer;color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Outfit',sans-serif;transition:all .15s;
+}
+.qty-btn:hover{border-color:var(--neon);color:var(--neon)}
+.qty-num{font-weight:800;font-size:16px;min-width:22px;text-align:center;color:var(--white)}
+.cart-remove{
+  background:none;border:none;font-size:16px;cursor:pointer;
+  color:var(--gray);transition:color .2s;padding:0 4px;
+}
+.cart-remove:hover{color:var(--pink)}
+.cart-footer{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:30px 34px;margin-top:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:20px;
+}
+.total-label{color:var(--gray);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.total-num{
+  font-family:'Bebas Neue',sans-serif;font-size:36px;
+  background:linear-gradient(90deg,var(--white),var(--neon));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.btn-order{
+  display:inline-block;
+  background:linear-gradient(135deg,#0088cc,#00aaff);
+  color:#fff;border:none;padding:18px 50px;border-radius:40px;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;
+  letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  text-decoration:none;transition:all .2s;
+  box-shadow:0 0 30px rgba(0,136,204,.4);
+}
+.btn-order:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(0,136,204,.6)}
+
+/* ── CONTACTS ── */
+#contacts{background:var(--bg);padding:90px 30px;border-top:1px solid var(--border)}
+.contacts-grid{
+  display:flex;justify-content:center;gap:24px;
+  margin-top:60px;flex-wrap:wrap;
+}
+.contact-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:40px 50px;text-align:center;transition:all .3s;min-width:240px;
+}
+.contact-card:hover{
+  border-color:rgba(0,240,255,.3);
+  box-shadow:0 0 40px rgba(0,240,255,.07);
+  transform:translateY(-6px);
+}
+.c-icon{font-size:40px;margin-bottom:16px}
+.contact-card h4{
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;
+  color:var(--neon);margin-bottom:12px;
+}
+.contact-card a{
+  display:block;color:var(--text);text-decoration:none;
+  font-size:14px;margin-bottom:8px;transition:color .2s;
+}
+.contact-card a:hover{color:var(--neon)}
+.tg-btn{
+  display:inline-block;margin-top:14px;
+  background:linear-gradient(135deg,#0088cc,#00aaff);
+  color:#fff!important;padding:11px 28px;border-radius:40px;
+  font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+}
+
+/* ── О НАС ── */
+#about{background:var(--bg2);padding:90px 30px;border-top:1px solid var(--border)}
+.about-intro{
+  max-width:700px;margin:0 auto 75px;text-align:center;
+  font-size:15px;line-height:1.9;color:var(--text);font-weight:300;
+}
+.about-intro strong{color:var(--neon);font-weight:700}
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:26px;max-width:1200px;margin:0 auto;
+}
+.team-card{
+  background:var(--card);border:1px solid var(--border);border-radius:22px;
+  padding:38px 30px 34px;text-align:center;
+  transition:all .35s;position:relative;overflow:hidden;
+}
+.team-card::after{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:150px;height:150px;border-radius:50%;
+  pointer-events:none;
+}
+.tc1::after{background:radial-gradient(circle,rgba(0,240,255,.08),transparent 70%)}
+.tc2::after{background:radial-gradient(circle,rgba(255,45,120,.08),transparent 70%)}
+.tc3::after{background:radial-gradient(circle,rgba(191,0,255,.08),transparent 70%)}
+.tc4::after{background:radial-gradient(circle,rgba(255,180,0,.08),transparent 70%)}
+.tc1:hover{transform:translateY(-10px);border-color:rgba(0,240,255,.4);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(0,240,255,.1)}
+.tc2:hover{transform:translateY(-10px);border-color:rgba(255,45,120,.4);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(255,45,120,.1)}
+.tc3:hover{transform:translateY(-10px);border-color:rgba(191,0,255,.4);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(191,0,255,.1)}
+.tc4:hover{transform:translateY(-10px);border-color:rgba(255,180,0,.4);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(255,180,0,.1)}
+
+/* Думалоқ расм */
+.t-photo-wrap{
+  width:100px;height:100px;border-radius:50%;
+  margin:0 auto 20px;position:relative;overflow:hidden;
+  flex-shrink:0;
+}
+.tc1 .t-photo-wrap{border:3px solid rgba(0,240,255,.5);box-shadow:0 0 20px rgba(0,240,255,.25)}
+.tc2 .t-photo-wrap{border:3px solid rgba(255,45,120,.5);box-shadow:0 0 20px rgba(255,45,120,.25)}
+.tc3 .t-photo-wrap{border:3px solid rgba(191,0,255,.5);box-shadow:0 0 20px rgba(191,0,255,.25)}
+.tc4 .t-photo-wrap{border:3px solid rgba(255,180,0,.5);box-shadow:0 0 20px rgba(255,180,0,.25)}
+.t-photo-wrap img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+}
+.t-photo-wrap .t-initials{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;
+  background:linear-gradient(135deg,#1a1a2e,#0e0e1c);
+}
+.tc1 .t-initials{color:var(--neon)}
+.tc2 .t-initials{color:var(--pink)}
+.tc3 .t-initials{color:var(--neon2)}
+.tc4 .t-initials{color:#ffb400}
+
+.t-role{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.tc1 .t-role{color:var(--neon)}
+.tc2 .t-role{color:var(--pink)}
+.tc3 .t-role{color:var(--neon2)}
+.tc4 .t-role{color:#ffb400}
+.t-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:14px;line-height:1.2}
+.t-desc{font-size:12.5px;color:var(--text);line-height:1.75;font-weight:300}
+.t-skills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:18px}
+.sk{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:40px;border:1px solid}
+.sk.a{border-color:rgba(0,240,255,.3);color:var(--neon);background:rgba(0,240,255,.07)}
+.sk.b{border-color:rgba(191,0,255,.3);color:var(--neon2);background:rgba(191,0,255,.07)}
+.sk.c{border-color:rgba(255,45,120,.3);color:var(--pink);background:rgba(255,45,120,.07)}
+.sk.d{border-color:rgba(255,180,0,.3);color:#ffb400;background:rgba(255,180,0,.07)}
+
+/* ── FOOTER ── */
+footer{
+  background:#050508;border-top:1px solid #111;
+  text-align:center;padding:30px;
+  font-size:12px;letter-spacing:2px;color:var(--gray);
+}
+footer span{
+  background:linear-gradient(90deg,var(--neon),var(--neon2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  background:var(--card);border:1px solid rgba(0,240,255,.3);
+  color:var(--white);padding:16px 26px;border-radius:12px;
+  font-size:14px;font-weight:600;z-index:9999;
+  transform:translateY(100px);opacity:0;transition:all .3s;
+  box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 20px rgba(0,240,255,.1);
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  header{padding:0 20px}
+  nav{
+    display:none;position:fixed;top:72px;left:0;right:0;
+    background:rgba(8,8,16,.97);border-bottom:1px solid var(--border);
+    backdrop-filter:blur(20px);flex-direction:column;
+    padding:30px;gap:22px;z-index:998;
+  }
+  nav.open{display:flex}
+  .burger{display:flex}
+  .hero h1{font-size:clamp(50px,15vw,90px)}
+  .products{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+  .stats-bar{gap:30px;padding:20px}
+  .cart-footer{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">NEOSTYLE</div>
+  <nav id="mainNav">
+    <a href="#home">Главная</a>
+    <a href="#men">Мужская</a>
+    <a href="#women">Женская</a>
+    <a href="#about">О нас</a>
+    <a href="#contacts">Контакты</a>
+    <a href="#cart-section" class="cart-nav">🛒 Корзина <span id="cartCount">0</span></a>
+  </nav>
+  <button class="burger" id="burger" onclick="document.getElementById('mainNav').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow1"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">⚡ Новая коллекция 2026</div>
+    <h1>NEO<br><span class="accent">STYLE</span></h1>
+    <p class="hero-sub">Кроссовки нового поколения</p>
+    <div class="hero-btns">
+      <a href="#men" class="btn-primary">Смотреть коллекцию</a>
+      <a href="#contacts" class="btn-secondary">Связаться</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Моделей</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Брендов</div></div>
+  <div class="stat"><div class="stat-num">15</div><div class="stat-label">Размеров</div></div>
+  <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Рейтинг</div></div>
+</div>
+
+<!-- MEN -->
+<section class="section" id="men">
+  <div class="sec-head">
+    <div class="sec-tag">// мужская коллекция</div>
+    <h2 class="sec-title">Мужская обувь</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="products" id="men-products"></div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-inner">
+    NEOSTYLE SHOES &nbsp;✦&nbsp; НОВАЯ КОЛЛЕКЦИЯ 2026 &nbsp;✦&nbsp; КАЧЕСТВО &nbsp;✦&nbsp; СТИЛЬ &nbsp;✦&nbsp; КОМФОРТ &nbsp;✦&nbsp; NEOSTYLE SHOES &nbsp;✦&nbsp; НОВАЯ КОЛЛЕКЦИЯ 2026 &nbsp;✦&nbsp; КАЧЕСТВО &nbsp;✦&nbsp; СТИЛЬ &nbsp;✦&nbsp; КОМФОРТ &nbsp;✦&nbsp;
+  </div>
+</div>
+
+<!-- WOMEN -->
+<section class="section" id="women">
+  <div class="sec-head">
+    <div class="sec-tag">// женская коллекция</div>
+    <h2 class="sec-title">Женская обувь</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="products" id="women-products"></div>
+</section>
+
+<!-- CART -->
+<section id="cart-section">
+  <div class="cart-inner">
+    <div class="sec-head">
+      <div class="sec-tag">// ваш выбор</div>
+      <h2 class="sec-title">Корзина</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div id="cartItems">
+      <div class="cart-empty">🛒 &nbsp; Корзина пуста — добавьте товары выше</div>
+    </div>
+    <div id="cartFooter" style="display:none">
+      <div class="cart-footer">
+        <div>
+          <div class="total-label">Итого к оплате</div>
+          <div class="total-num" id="totalPrice">₽ 0</div>
+        </div>
+        <a id="telegramOrder" href="#" target="_blank" class="btn-order">
+          ✈️ &nbsp; Оформить через Telegram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- О НАС -->
+<section id="about">
+  <div class="sec-head">
+    <div class="sec-tag">// наша команда</div>
+    <h2 class="sec-title">О нас</h2>
+    <div class="sec-line"></div>
+  </div>
+  <p class="about-intro">
+    <strong>NEOSTYLE SHOES</strong> — магазин премиальных кроссовок нового поколения.
+    Мы собрали лучшие модели мировых брендов в одном месте и делаем покупку максимально
+    удобной. За каждой парой стоит <strong>профессиональная команда</strong>, которая
+    живёт модой и следит за качеством на каждом этапе — от разработки до доставки.
+  </p>
+  <div class="team-grid">
+
+    <!-- 1: Shahzadbek -->
+    <div class="team-card tc1">
+      <div class="t-photo-wrap">
+        <img src="images/team-shahzadbek.jpg" alt="Шахзадбек"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="t-initials" style="display:none">ШР</div>
+      </div>
+      <div class="t-role">Разработчик & Программист</div>
+      <div class="t-name">Реджепбаев<br>Шахзадбек</div>
+      <div class="t-desc">
+        Ведущий разработчик проекта. Пишет весь код сайта — от архитектуры
+        до мельчайших деталей интерфейса. Специализируется на создании
+        быстрых, современных веб-приложений с нуля.
+      </div>
+      <div class="t-skills">
+        <span class="sk a">JavaScript</span>
+        <span class="sk a">HTML / CSS</span>
+        <span class="sk b">Frontend</span>
+        <span class="sk b">Web Dev</span>
+        <span class="sk a">React</span>
+      </div>
+    </div>
+
+    <!-- 2: Zaman -->
+    <div class="team-card tc2">
+      <div class="t-photo-wrap">
+        <img src="images/team-zaman.jpg" alt="Заман"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="t-initials" style="display:none">БЗ</div>
+      </div>
+      <div class="t-role">Тестировщик</div>
+      <div class="t-name">Батыров<br>Заман</div>
+      <div class="t-desc">
+        Отвечает за качество и стабильность сайта. Тестирует каждую функцию —
+        корзину, фильтры, оформление заказов и адаптивность на всех устройствах.
+        Гарантирует безошибочную работу платформы.
+      </div>
+      <div class="t-skills">
+        <span class="sk c">QA Testing</span>
+        <span class="sk c">Bug Tracking</span>
+        <span class="sk b">Mobile Test</span>
+        <span class="sk c">UI Testing</span>
+      </div>
+    </div>
+
+    <!-- 3: Chary -->
+    <div class="team-card tc3">
+      <div class="t-photo-wrap">
+        <img src="images/team-chary.jpg" alt="Чары"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="t-initials" style="display:none">МЧ</div>
+      </div>
+      <div class="t-role">Бэкенд разработчик</div>
+      <div class="t-name">Мырадов<br>Чары</div>
+      <div class="t-desc">
+        Строит серверную часть проекта: базы данных, API, обработку заказов
+        и интеграцию с платёжными системами. Обеспечивает надёжность
+        и безопасность всей инфраструктуры магазина.
+      </div>
+      <div class="t-skills">
+        <span class="sk b">Backend</span>
+        <span class="sk b">Node.js</span>
+        <span class="sk a">API</span>
+        <span class="sk b">Database</span>
+        <span class="sk a">Server</span>
+      </div>
+    </div>
+
+    <!-- 4: Airat -->
+    <div class="team-card tc4">
+      <div class="t-photo-wrap">
+        <img src="images/team-airat.jpg" alt="Айрат"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="t-initials" style="display:none">АХ</div>
+      </div>
+      <div class="t-role">Дизайнер</div>
+      <div class="t-name">Хамидуллов<br>Айрат</div>
+      <div class="t-desc">
+        Создаёт визуальный образ бренда: логотип, цветовую палитру, карточки
+        товаров и баннеры. Следит за тем, чтобы каждый элемент сайта выглядел
+        стильно и привлекал внимание покупателей.
+      </div>
+      <div class="t-skills">
+        <span class="sk d">UI / UX</span>
+        <span class="sk d">Figma</span>
+        <span class="sk b">Branding</span>
+        <span class="sk d">Graphic</span>
+        <span class="sk b">Motion</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts">
+  <div class="sec-head">
+    <div class="sec-tag">// связаться</div>
+    <h2 class="sec-title">Контакты</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="contacts-grid">
+    <div class="contact-card">
+      <div class="c-icon">✈️</div>
+      <h4>Telegram</h4>
+      <a href="https://t.me/your1shah" target="_blank">@your1shah</a>
+      <a href="https://t.me/your1shah" target="_blank" class="tg-btn">Написать нам</a>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">📧</div>
+      <h4>Email</h4>
+      <a href="mailto:rejepbayevshahzadbek@gmail.com">rejepbayevshahzadbek@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">🕐</div>
+      <h4>Время работы</h4>
+      <a>Пн – Сб: 09:00 – 20:00</a>
+      <a>Воскресенье: 10:00 – 18:00</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 &nbsp;<span>NEOSTYLE SHOES</span>&nbsp; — Все права защищены &nbsp;|&nbsp; Telegram: <span>@your1shah</span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// CURSOR
+document.addEventListener('mousemove', e => {
+  const g = document.getElementById('cursorGlow');
+  g.style.left = e.clientX + 'px';
+  g.style.top = e.clientY + 'px';
+});
+
+// DATA
+const SIZES = [30,31,32,33,34,35,36,37,38,39,40,41,42,43,44];
+
+const MEN_PRODUCTS = [
+  {id:'airmax',     brand:'Nike',        name:'Nike Air Max',      price:5990,  colors:['white','black','gray','blue','pink'], img:'nike-air-max',      badge:''},
+  {id:'airforce',   brand:'Nike',        name:'Nike Air Force 1',  price:6490,  colors:['white','black','gray','blue','pink'], img:'nike-air-force',    badge:'hit'},
+  {id:'dunksb',     brand:'Nike',        name:'Nike Dunk SB',      price:7490,  colors:['white','black','gray','blue','red'],  img:'nike-dunk-sb',      badge:''},
+  {id:'blazer',     brand:'Nike',        name:'Nike Blazer Mid',   price:5490,  colors:['white','black','gray','beige'],       img:'nike-blazer',       badge:''},
+  {id:'gazelle',    brand:'Adidas',      name:'Adidas Gazelle',    price:5790,  colors:['white','black','gray','blue','pink'], img:'adidas-gazelle',    badge:''},
+  {id:'campus',     brand:'Adidas',      name:'Adidas Campus',     price:6290,  colors:['white','black','gray','blue','pink'], img:'adidas-campus',     badge:'new'},
+  {id:'ultraboost', brand:'Adidas',      name:'Adidas Ultraboost', price:8990,  colors:['white','black','gray','blue'],        img:'adidas-ultraboost', badge:''},
+  {id:'nb530',      brand:'New Balance', name:'New Balance 530',   price:6990,  colors:['white','gray','blue','beige'],        img:'newbalance-530',    badge:''},
+  {id:'nb550',      brand:'New Balance', name:'New Balance 550',   price:7490,  colors:['white','black','gray','green'],       img:'newbalance-550',    badge:'hit'},
+  {id:'nb9060',     brand:'New Balance', name:'New Balance 9060',  price:9490,  colors:['white','black','gray','beige'],       img:'newbalance-9060',   badge:'new'},
+];
+
+const WOMEN_PRODUCTS = [
+  {id:'jordan1',   brand:'Jordan', name:'Jordan 1',          price:8490,  colors:['white','black','gray','blue','pink'], img:'jordan-1',       badge:''},
+  {id:'jordan4',   brand:'Jordan', name:'Jordan 4',          price:9490,  colors:['white','black','gray','pink','red'],  img:'jordan-4',       badge:'hit'},
+  {id:'jordanlow', brand:'Jordan', name:'Jordan Low',        price:8490,  colors:['white','black','pink','blue'],        img:'jordan-low',     badge:''},
+  {id:'yeezy350',  brand:'Adidas', name:'Yeezy 350 V2',      price:10990, colors:['white','black','gray','beige'],       img:'yeezy-350',      badge:'lux'},
+  {id:'yeezy700',  brand:'Adidas', name:'Yeezy 700',         price:11490, colors:['white','black','gray','blue'],        img:'yeezy-700',      badge:'lux'},
+  {id:'pumarsx',   brand:'Puma',   name:'Puma RS-X',         price:6790,  colors:['white','black','pink','blue'],        img:'puma-rsx',       badge:''},
+  {id:'pumasuede', brand:'Puma',   name:'Puma Suede',        price:6490,  colors:['white','black','gray','pink','beige'],img:'puma-suede',     badge:''},
+  {id:'gelnyc',    brand:'Asics',  name:'Asics Gel NYC',     price:7990,  colors:['white','gray','blue','beige'],        img:'asics-gel-nyc',  badge:'new'},
+  {id:'kayano',    brand:'Asics',  name:'Asics Gel Kayano',  price:8990,  colors:['white','black','blue','pink'],        img:'asics-kayano',   badge:''},
+  {id:'gel1130',   brand:'Asics',  name:'Asics Gel 1130',    price:7490,  colors:['white','gray','beige','pink'],        img:'asics-gel-1130', badge:'new'},
+];
+
+const CN = {white:'Белый',black:'Чёрный',gray:'Серый',blue:'Синий',pink:'Розовый',red:'Красный',green:'Зелёный',beige:'Бежевый'};
+
+function badgeHTML(b){
+  if(!b) return '';
+  const cls = b==='hit'?'badge-hit':b==='new'?'badge-new':'badge-lux';
+  const txt = b==='hit'?'ХИТ':b==='new'?'NEW':'ЛЮКС';
+  return `<div class="card-badge ${cls}">${txt}</div>`;
+}
+
+function makeCard(p){
+  const dc = p.colors[0];
+  const dots = p.colors.map((c,i)=>
+    `<div class="color-dot${i===0?' active':''}" data-color="${c}" title="${CN[c]||c}"
+      onclick="pickColor('${p.id}','${p.img}','${c}',this)"></div>`
+  ).join('');
+  const szBtns = SIZES.map(s=>
+    `<button class="sz" onclick="pickSize(this,'${p.id}')">${s}</button>`
+  ).join('');
+  return `
+<div class="card">
+  <div class="card-img-wrap">
+    ${badgeHTML(p.badge)}
+    <img id="img-${p.id}" src="images/${p.img}-${dc}.jpg" alt="${p.name}"
+      onerror="this.src='';this.style.background='linear-gradient(135deg,#0e0e1c,#1a1a2e)'">
+  </div>
+  <div class="card-body">
+    <div class="card-brand">${p.brand}</div>
+    <h3>${p.name}</h3>
+    <div class="price">₽ ${p.price.toLocaleString('ru')}</div>
+    <div class="pick-label">Цвет: <span id="cn-${p.id}">${CN[dc]}</span></div>
+    <div class="color-dots">${dots}</div>
+    <div class="pick-label">Размер: <span id="sn-${p.id}" style="color:var(--neon)">не выбран</span></div>
+    <div class="size-grid" id="sz-${p.id}">${szBtns}</div>
+    <button class="btn-add" onclick="addToCart('${p.id}','${p.name}',${p.price})">
+      + Добавить в корзину
+    </button>
+  </div>
+</div>`;
+}
+
+document.getElementById('men-products').innerHTML = MEN_PRODUCTS.map(makeCard).join('');
+document.getElementById('women-products').innerHTML = WOMEN_PRODUCTS.map(makeCard).join('');
+
+function pickColor(id, imgBase, color, el){
+  document.getElementById('img-'+id).src = `images/${imgBase}-${color}.jpg`;
+  document.getElementById('cn-'+id).textContent = CN[color]||color;
+  el.closest('.color-dots').querySelectorAll('.color-dot').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function pickSize(btn, id){
+  btn.closest('.size-grid').querySelectorAll('.sz').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('sn-'+id).textContent = btn.textContent;
+}
+
+// CART
+let cart = [];
+
+function addToCart(id, name, price){
+  const sizeEl = document.querySelector(`#sz-${id} .sz.active`);
+  if(!sizeEl){ showToast('⚠️ Выберите размер!'); return; }
+  const color = document.getElementById('cn-'+id).textContent;
+  const size  = sizeEl.textContent;
+  const key   = `${id}-${size}-${color}`;
+  const ex    = cart.find(i=>i.key===key);
+  if(ex){ ex.qty++; }
+  else { cart.push({key,id,name,price,size,color,qty:1}); }
+  renderCart(); updateCount();
+  showToast(`✓ ${name} · ${color} · ${size} — добавлен!`);
+}
+
+function removeFromCart(key){ cart=cart.filter(i=>i.key!==key); renderCart(); updateCount(); }
+
+function changeQty(key,d){
+  const it=cart.find(i=>i.key===key);
+  if(!it)return;
+  it.qty+=d;
+  if(it.qty<=0){removeFromCart(key);return;}
+  renderCart();
+}
+
+function renderCart(){
+  const el=document.getElementById('cartItems');
+  const ft=document.getElementById('cartFooter');
+  if(!cart.length){
+    el.innerHTML='<div class="cart-empty">🛒 &nbsp; Корзина пуста — добавьте товары выше</div>';
+    ft.style.display='none'; return;
+  }
+  let total=0;
+  el.innerHTML=cart.map(it=>{
+    total+=it.price*it.qty;
+    return `
+<div class="cart-item">
+  <div class="cart-item-info">
+    <div class="cart-item-name">${it.name}</div>
+    <div class="cart-item-meta">Цвет: ${it.color} &nbsp;|&nbsp; Размер: ${it.size}</div>
+  </div>
+  <div class="qty-wrap">
+    <button class="qty-btn" onclick="changeQty('${it.key}',-1)">−</button>
+    <span class="qty-num">${it.qty}</span>
+    <button class="qty-btn" onclick="changeQty('${it.key}',1)">+</button>
+  </div>
+  <div class="cart-item-price">₽ ${(it.price*it.qty).toLocaleString('ru')}</div>
+  <button class="cart-remove" onclick="removeFromCart('${it.key}')">✕</button>
+</div>`;
+  }).join('');
+  document.getElementById('totalPrice').textContent='₽ '+total.toLocaleString('ru');
+  ft.style.display='block';
+  const lines=cart.map(i=>`${i.name} | ${i.color} | Размер ${i.size} | ${i.qty} шт. | ₽${(i.price*i.qty).toLocaleString('ru')}`).join('\n');
+  document.getElementById('telegramOrder').href=
+    `https://t.me/your1shah?text=${encodeURIComponent('🛒 Заказ:\n'+lines+'\n\nИтого: ₽'+total.toLocaleString('ru'))}`;
+}
+
+function updateCount(){
+  document.getElementById('cartCount').textContent=cart.reduce((s,i)=>s+i.qty,0);
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>
